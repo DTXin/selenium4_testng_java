@@ -1,55 +1,53 @@
 package org.example.base;
 
-// import java.lang.ThreadLocal;
-
+import org.openqa.selenium.WebDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.pageObjects.BingMainPage;
-import org.openqa.selenium.WebDriver;
+import org.example.pageObjects.LoginPage.LoginPage;
+import org.example.pageObjects.ProductPage.ProductPage;
 
-public class PageManager extends AbstractTest {
-    protected static final Logger logger = LogManager.getLogger();
+public class PageManager {
+    private static final Logger logger = LogManager.getLogger();
+    private static final ThreadLocal<PageManager> page = new ThreadLocal<PageManager>();
 
-    private static PageManager instance = null;
-    private BingMainPage bingMainPage = null;
-    public WebDriver driver;
+    private final WebDriver driver;
+    private LoginPage loginPage;
+    private ProductPage productPage;
 
-    public PageManager() {
-        this.driver = DriverManager.getDriver();
+    public PageManager(WebDriver driver) {
+        this.driver = driver;
     }
 
-    public static PageManager getInstance() {
-        if (instance == null) {
-            synchronized (PageManager.class) {
-                if (instance == null) {
-                    instance = new PageManager();
-                }
-            }
+    public static PageManager getPageManager() {
+        return page.get();
+    }
+
+    public static void setPageManager(PageManager pageManager) {
+        page.set(pageManager);
+    }
+
+    public static void getInstance() {
+        setPageManager(new PageManager(DriverManager.getDriver()));
+    }
+
+    public LoginPage getLoginPage() {
+        if (loginPage == null) {
+            logger.info("=== Logger: Init object `{}` ===", LoginPage.class.getName());
+            loginPage = new LoginPage(driver);
         }
-        return instance;
+        return loginPage;
     }
 
-    public BingMainPage getBingMainPage() {
-        if (bingMainPage == null) {
-            logger.info("=== Logger: Init object `{}` ===", BingMainPage.class.getName());
-            bingMainPage = new BingMainPage(driver);
+    public ProductPage getProductPage() {
+        if (productPage == null) {
+            logger.info("=== Logger: Init object `{}` ===", ProductPage.class.getName());
+            productPage = new ProductPage(driver);
         }
-        return bingMainPage;
+        return productPage;
     }
 
-    // private static ThreadLocal<BingMainPage> bingMainPage;
-
-    // public static synchronized BingMainPage getBingMainPage() {
-    // if (DriverManager.getDriver() == null) {
-    // logger.info("=== Logger: Init object `{}` ===",
-    // BingMainPage.class.getName());
-    // bingMainPage = ThreadLocal.withInitial(() -> new
-    // BingMainPage(DriverManager.getDriver()));
-    // }
-    // return bingMainPage.get();
-    // }
-
-    // public static void cleanUp() {
-    // bingMainPage.remove();
-    // }
+     public static void cleanUp() {
+        logger.info("=== Logger: Cleanup page manager ===");
+        page.remove();
+     }
 }

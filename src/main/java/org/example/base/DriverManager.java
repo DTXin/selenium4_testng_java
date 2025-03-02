@@ -103,7 +103,7 @@ public class DriverManager {
         if (driver.get() != null) {
             logger.info("=== Logger: Closing the driver ===");
             getDriver().quit();
-            // driver.remove();
+            driver.remove();
         }
     }
 }
