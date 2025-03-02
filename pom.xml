@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <allure.version>2.24.0</allure.version>
-        <aspectj.version>1.9.20.1</aspectj.version>
+        <aspectj.version>1.9.22</aspectj.version>
     </properties>
 
     <dependencies>
@@ -92,6 +92,7 @@
                 <version>2.22.2</version>
                 <configuration>
                     <suiteXmlFiles>
+                        <!--suppress UnresolvedMavenProperty -->
                         <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
