@@ -13,14 +13,17 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DriverManager {
     private static final Logger logger = LogManager.getLogger();
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+    private static final ThreadLocal<WebDriverWait> driverWait = new ThreadLocal<WebDriverWait>();
 
     private static final String CHROME = "chrome";
     private static final String FIREFOX = "firefox";
     private static final String EDGE = "edge";
+    private static final long TIMEOUT = 20;
 
     private DriverManager() {
     }
@@ -32,14 +35,19 @@ public class DriverManager {
             case EDGE -> setupEdgeDriver();
             default -> setupChromeDriver();
         }
-        setupBrowserTimeouts();
+        setupDriverTimeouts();
     }
 
-    private static void setupBrowserTimeouts() {
-        logger.info("=== Logger: Setting browser timeouts...");
-        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
-        getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(20));
+    private static void setupDriverTimeouts() {
+        logger.info("=== Logger: Setting driver timeouts...");
+
+        // set timeout for WebDriver
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(TIMEOUT));
+        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TIMEOUT));
+        getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(TIMEOUT));
+
+        // Set timeout for WebDriverWait
+        setDriverWait(new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT)));
     }
 
     private static void setupChromeDriver() {
@@ -61,6 +69,9 @@ public class DriverManager {
         options.addArguments("--disable-features=PasswordLeakDetection");
         options.addArguments("--suppress-message-center-popups");
         options.addArguments("--safebrowsing-disable-download-protection");
+
+        // Disable infor-bars
+        options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 
         var isHeadless = Boolean.parseBoolean(Objects.requireNonNullElse(System.getProperty("headless"), "false"));
         if (isHeadless) {
@@ -95,8 +106,16 @@ public class DriverManager {
         return driver.get();
     }
 
+    public static WebDriverWait getDriverWait() {
+        return driverWait.get();
+    }
+
     public static void setDriver(WebDriver webDriver) {
         driver.set(webDriver);
+    }
+
+    public static void setDriverWait(WebDriverWait webDriverWait) {
+        driverWait.set(webDriverWait);
     }
 
     public static void closeDriver() {

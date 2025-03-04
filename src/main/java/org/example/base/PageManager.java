@@ -46,8 +46,8 @@ public class PageManager {
         return productPage;
     }
 
-     public static void cleanUp() {
+    public static void cleanUp() {
         logger.info("=== Logger: Cleanup page manager ===");
         page.remove();
-     }
+    }
 }

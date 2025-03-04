@@ -9,13 +9,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 public class ProductPage extends AbstractPage {
-    public WebDriver driver;
 
     @FindBy(className = "header_secondary_container")
     WebElement header_title;
 
     public ProductPage(WebDriver driver) {
-        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
