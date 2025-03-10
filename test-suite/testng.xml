@@ -9,6 +9,8 @@
     <test name="Test - Chrome" thread-count="2" parallel="methods">
         <parameter name="browser" value="chrome" />
         <parameter name="url" value="https://www.saucedemo.com/" />
+        <parameter name="runmode" value="grid" />
+        <parameter name="platform_name" value="Windows 10" />
         <classes>
             <class name="org.example.LoginTest"/>
         </classes>

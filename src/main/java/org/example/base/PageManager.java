@@ -10,12 +10,10 @@ public class PageManager {
     private static final Logger logger = LogManager.getLogger();
     private static final ThreadLocal<PageManager> page = new ThreadLocal<PageManager>();
 
-    private final WebDriver driver;
     private LoginPage loginPage;
     private ProductPage productPage;
 
     public PageManager(WebDriver driver) {
-        this.driver = driver;
     }
 
     public static PageManager getPageManager() {
@@ -33,7 +31,7 @@ public class PageManager {
     public LoginPage getLoginPage() {
         if (loginPage == null) {
             logger.info("=== Logger: Init object `{}` ===", LoginPage.class.getName());
-            loginPage = new LoginPage(driver);
+            loginPage = new LoginPage();
         }
         return loginPage;
     }
@@ -41,7 +39,7 @@ public class PageManager {
     public ProductPage getProductPage() {
         if (productPage == null) {
             logger.info("=== Logger: Init object `{}` ===", ProductPage.class.getName());
-            productPage = new ProductPage(driver);
+            productPage = new ProductPage();
         }
         return productPage;
     }

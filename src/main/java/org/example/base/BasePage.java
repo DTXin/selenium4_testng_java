@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
-public abstract class AbstractPage {
+public abstract class BasePage {
     protected static final Logger logger = LogManager.getLogger();
 
     /********************************************************************
@@ -105,6 +105,34 @@ public abstract class AbstractPage {
         try {
             logger.info("Convert xpath of a list element to list webElement: xpath is `{}` ", xpath);
             listElement = DriverManager.getDriver().findElements(By.xpath(xpath));
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+
+        return listElement;
+    }
+
+    // Convert element from css which can not use @FindBy
+    public WebElement getElementByCss(String css, String... arg) {
+        WebElement webElement = null;
+
+        try {
+            logger.info("Convert css element to webelement: css is `{}` ", css);
+            webElement = DriverManager.getDriver().findElement(By.cssSelector(css));
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+
+        return webElement;
+    }
+
+    // Convert css of list element to list webElement which can not use @FindBy
+    public List<WebElement> getElementsByCss(String css, String... arg) {
+        List<WebElement> listElement = new ArrayList<WebElement>();
+
+        try {
+            logger.info("Convert css of a list element to list webElement: css is `{}` ", css);
+            listElement = DriverManager.getDriver().findElements(By.cssSelector(css));
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
