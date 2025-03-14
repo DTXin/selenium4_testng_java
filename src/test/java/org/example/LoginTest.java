@@ -22,7 +22,7 @@ public class LoginTest extends BaseTest {
     public void TC02_Login_WrongPassword() {
         navigateToUrl();
         PageManager.getPageManager().getLoginPage().inputTextToUsername("standard_user");
-        PageManager.getPageManager().getLoginPage().inputTextToPassword("123");
+        PageManager.getPageManager().getLoginPage().inputTextToPassword("secret_sauce");
         PageManager.getPageManager().getLoginPage().clickOnLoginButton();
         PageManager.getPageManager().getProductPage().verifyProductPageIsDisplayed();
     }

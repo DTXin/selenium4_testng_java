@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.pageObjects.LoginPage.LoginPage;
 import org.example.pageObjects.ProductPage.ProductPage;
+import org.example.utils.FileHelper.FileHelper;
 
 public class PageManager {
     private static final Logger logger = LogManager.getLogger();
@@ -12,6 +13,7 @@ public class PageManager {
 
     private LoginPage loginPage;
     private ProductPage productPage;
+    private FileHelper fileHelper;
 
     public PageManager(WebDriver driver) {
     }
@@ -42,6 +44,14 @@ public class PageManager {
             productPage = new ProductPage();
         }
         return productPage;
+    }
+
+    public FileHelper getFileHelper() {
+        if (fileHelper == null) {
+            logger.info("=== Logger: Init object `{}` ===", FileHelper.class.getName());
+            fileHelper = new FileHelper();
+        }
+        return fileHelper;
     }
 
     public static void cleanUp() {

@@ -27,7 +27,6 @@ public class DriverManager {
     private static final ThreadLocal<WebDriverWait> driverWait = new ThreadLocal<WebDriverWait>();
 
     private static final String HUBURL = "http://localhost:4444";
-    private static final String CHROME = "chrome";
     private static final String FIREFOX = "firefox";
     private static final String EDGE = "edge";
     private static final long TIMEOUT = 20;
@@ -43,17 +42,9 @@ public class DriverManager {
         logger.info("=== Logger: Creating local `{}` driver ===", browser);
 
         switch (browser) {
-            case CHROME:
-                setDriver(new ChromeDriver(getChromeOptions()));
-                break;
-
-            case FIREFOX:
-                setDriver(new FirefoxDriver(getFireFoxOptions()));
-                break;
-
-            case EDGE:
-                setDriver(new EdgeDriver(getEdgeOptions()));
-                break;
+            case FIREFOX -> setDriver(new FirefoxDriver(getFireFoxOptions()));
+            case EDGE -> setDriver(new EdgeDriver(getEdgeOptions()));
+            default -> setDriver(new ChromeDriver(getChromeOptions()));
         }
         setupDriverTimeouts();
     }
@@ -63,12 +54,6 @@ public class DriverManager {
 
         logger.info("=== Logger: Creating remote `{}` driver ===", browser);
         switch (browser) {
-            case CHROME:
-                chromeOptions = new ChromeOptions();
-                chromeOptions.setPlatformName(platform_name);
-                setDriver(new RemoteWebDriver(new URI(HUBURL).toURL(), chromeOptions));
-                break;
-
             case FIREFOX:
                 firefoxOptions = new FirefoxOptions();
                 firefoxOptions.setPlatformName(platform_name);
@@ -79,6 +64,12 @@ public class DriverManager {
                 edgeOptions = new EdgeOptions();
                 edgeOptions.setPlatformName(platform_name);
                 setDriver(new RemoteWebDriver(new URI(HUBURL).toURL(), edgeOptions));
+                break;
+
+            default:
+                chromeOptions = getChromeOptions();
+                chromeOptions.setPlatformName(platform_name);
+                setDriver(new RemoteWebDriver(new URI(HUBURL).toURL(), chromeOptions));
                 break;
         }
         setupDriverTimeouts();
@@ -102,7 +93,7 @@ public class DriverManager {
         chromePrefs.put("safebrowsing.enabled", "true");
         chromePrefs.put("download.prompt_for_download", "false");
         chromePrefs.put("download.default_directory",
-                String.valueOf(Paths.get(System.getProperty("user.home"), "Downloads")));
+                String.valueOf(Paths.get(System.getProperty("user.dir"), "/src/test/resources/download")));
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
