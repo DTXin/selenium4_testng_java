@@ -14,9 +14,7 @@ import java.nio.file.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -71,11 +69,7 @@ public class FileHelper {
             URLConnection connection = url.openConnection();
 
             FileUtils.copyURLToFile(connection.getURL(), new File(saveFolderPath + fileName));
-        } catch (MalformedURLException e) {
-            logger.error(e.getMessage());
-        } catch (URISyntaxException e) {
-            logger.error(e.getMessage());
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
         }
     }
@@ -107,37 +101,35 @@ public class FileHelper {
     }
 
     // Copy file from this folder to that folder
-    public void copyFileToFolder(String fileName, String sourceFolder, String destFolder) {
-        logger.info("Copying file `{}` to folder `{}`", fileName, destFolder);
+    public void copyFileToFolder(String fileName, String sourceFolder, String destinationFolder) {
+        logger.info("Copying file `{}` to folder `{}`", fileName, destinationFolder);
 
         File sourceFile = new File(sourceFolder + fileName);
-        File destFile = new File(destFolder + "/" + fileName);
+        File destFile = new File(destinationFolder + "/" + fileName);
 
         try {
             FileUtils.copyFile(sourceFile, destFile);
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
-        logger.info("Files copied successfully!");
     }
 
     // Copy all file from this folder to that folder
-    public void copyAllFileToFolder(String sourceFolder, String destFolder) {
-        logger.info("Copying all file from folder `{}` to `{}` ....", sourceFolder, destFolder);
+    public void copyAllFileToFolder(String sourceFolder, String destinationFolder) {
+        logger.info("Copying all file from folder `{}` to `{}` ....", sourceFolder, destinationFolder);
 
         // Source and destination directories
         Path sourceDir = Paths.get(sourceFolder);
-        Path destDir = Paths.get(destFolder);
+        Path destinationDir = Paths.get(destinationFolder);
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(sourceDir)) {
             for (Path file : stream) {
-                Path destFile = destDir.resolve(file.getFileName());
-                Files.copy(file, destFile, StandardCopyOption.REPLACE_EXISTING);
+                Path destinationFile = destinationDir.resolve(file.getFileName());
+                Files.copy(file, destinationFile, StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
-        logger.info("Files copied successfully!");
     }
 
     // [File] Rename file
@@ -175,7 +167,7 @@ public class FileHelper {
         }
     }
 
-    // [Zip] Zip file and file in sub-directories
+    // [Zip] Zip file and file in subdirectories
     public void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
         if (fileToZip.isHidden()) {
             return;
@@ -253,9 +245,9 @@ public class FileHelper {
     }
 
     // [Unzip] Unzip file *.zip
-    public void unZip(String zipFilePath, String destDir) {
+    public void unZip(String zipFilePath, String destinationDir) {
         Path zipFile = Paths.get(zipFilePath);
-        Path destDirPath = Paths.get(destDir);
+        Path destDirPath = Paths.get(destinationDir);
 
         // Open the ZIP file
         try {
@@ -270,19 +262,19 @@ public class FileHelper {
 
             // Read each entry in the ZIP file
             while ((zipEntry = zis.getNextEntry()) != null) {
-                Path destFile = destDirPath.resolve(zipEntry.getName());
+                Path destinationFile = destDirPath.resolve(zipEntry.getName());
 
                 // Handle directories
                 if (zipEntry.isDirectory()) {
-                    Files.createDirectories(destFile);
+                    Files.createDirectories(destinationFile);
                 } else {
                     // Ensure parent directories exist
-                    if (Files.notExists(destFile.getParent())) {
-                        Files.createDirectories(destFile.getParent());
+                    if (Files.notExists(destinationFile.getParent())) {
+                        Files.createDirectories(destinationFile.getParent());
                     }
 
                     // Write the file content to the destination directory
-                    try (OutputStream os = Files.newOutputStream(destFile)) {
+                    try (OutputStream os = Files.newOutputStream(destinationFile)) {
                         int len;
                         while ((len = zis.read(buffer)) > 0) {
                             os.write(buffer, 0, len);

@@ -3,8 +3,6 @@ package org.example.base;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -13,24 +11,19 @@ import org.testng.annotations.Parameters;
 import io.qameta.allure.Step;
 
 public abstract class BaseTest {
-    protected static final Logger logger = LogManager.getLogger();
-
     private String baseUrl;
 
-    @Parameters({ "browser", "url", "runmode", "platform_name" })
+    @Parameters({ "browser", "url", "runMode", "platform_name" })
     @BeforeMethod(alwaysRun = true)
-    public void init(@Optional("chrome") String browser, String url, @Optional("local") String runmode,
+    public void init(@Optional("chrome") String browser, String url, @Optional("local") String runMode,
             @Optional("Window") String platform_name) throws MalformedURLException, URISyntaxException {
 
-        switch (runmode) {
-            case "grid":
-                DriverManager.createRemoteDriver(browser.toLowerCase(), platform_name);
-                break;
-
-            default:
-                DriverManager.createLocalDriver(browser.toLowerCase());
-                break;
+        if (runMode.equals("grid")) {
+            DriverManager.createRemoteDriver(browser.toLowerCase(), platform_name);
+        } else {
+            DriverManager.createLocalDriver(browser.toLowerCase());
         }
+
         PageManager.getInstance();
         setBaseUrl(url);
     }

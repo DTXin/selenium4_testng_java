@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 public class Common {
     protected static final Logger logger = LogManager.getLogger();
 
-    // Read file propterties
-    public Properties readFilePropterties(String path) {
+    // Read file properties
+    public Properties readFileProperties(String path) {
         logger.info("Reading file properties from path = `{}`", path);
 
         Properties properties = new Properties();
@@ -22,6 +22,14 @@ public class Common {
         }
 
         return properties;
+    }
+
+    // Get value from file properties
+    public String getValueFromFileProperties(String pathFile, String keyName) {
+        Properties properties = readFileProperties(pathFile);
+        String value = properties.getProperty(keyName);
+
+        return value;
     }
 
     // Get random a string
@@ -36,5 +44,4 @@ public class Common {
         return stringBuilder.toString();
     }
 
-    // Empty folder
 }

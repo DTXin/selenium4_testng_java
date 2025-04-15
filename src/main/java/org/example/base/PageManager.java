@@ -1,6 +1,5 @@
 package org.example.base;
 
-import org.openqa.selenium.WebDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.pageObjects.LoginPage.LoginPage;
@@ -9,13 +8,13 @@ import org.example.utils.FileHelper.FileHelper;
 
 public class PageManager {
     private static final Logger logger = LogManager.getLogger();
-    private static final ThreadLocal<PageManager> page = new ThreadLocal<PageManager>();
+    private static final ThreadLocal<PageManager> page = new ThreadLocal<>();
 
     private LoginPage loginPage;
     private ProductPage productPage;
     private FileHelper fileHelper;
 
-    public PageManager(WebDriver driver) {
+    public PageManager() {
     }
 
     public static PageManager getPageManager() {
@@ -27,12 +26,12 @@ public class PageManager {
     }
 
     public static void getInstance() {
-        setPageManager(new PageManager(DriverManager.getDriver()));
+        setPageManager(new PageManager());
     }
 
     public LoginPage getLoginPage() {
         if (loginPage == null) {
-            logger.info("=== Logger: Init object `{}` ===", LoginPage.class.getName());
+            logger.info("=== Logger: Init object for Login page ===");
             loginPage = new LoginPage();
         }
         return loginPage;
@@ -40,7 +39,7 @@ public class PageManager {
 
     public ProductPage getProductPage() {
         if (productPage == null) {
-            logger.info("=== Logger: Init object `{}` ===", ProductPage.class.getName());
+            logger.info("=== Logger: Init object for Product page ===");
             productPage = new ProductPage();
         }
         return productPage;
@@ -48,7 +47,7 @@ public class PageManager {
 
     public FileHelper getFileHelper() {
         if (fileHelper == null) {
-            logger.info("=== Logger: Init object `{}` ===", FileHelper.class.getName());
+            logger.info("=== Logger: Init object File Helper ===");
             fileHelper = new FileHelper();
         }
         return fileHelper;

@@ -23,7 +23,7 @@ public class TestFileHelper extends BaseTest {
         // Verify that the file was extracted
         File extractedFile = new File(downloadPath + testFileName);
         Assert.assertTrue(extractedFile.exists(), "Extracted file does not exist.");
-        Assert.assertTrue(extractedFile.isFile(), "Extracted file is not a validfile.");
+        Assert.assertTrue(extractedFile.isFile(), "Extracted file is not a valid file.");
     }
 
     @Test

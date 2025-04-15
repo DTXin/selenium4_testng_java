@@ -23,17 +23,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DriverManager {
     private static final Logger logger = LogManager.getLogger();
-    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
-    private static final ThreadLocal<WebDriverWait> driverWait = new ThreadLocal<WebDriverWait>();
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriverWait> driverWait = new ThreadLocal<>();
 
-    private static final String HUBURL = "http://localhost:4444";
+    private static final String HUB_URL = "http://localhost:4444";
     private static final String FIREFOX = "firefox";
     private static final String EDGE = "edge";
     private static final long TIMEOUT = 20;
-
-    private static ChromeOptions chromeOptions;
-    private static FirefoxOptions firefoxOptions;
-    private static EdgeOptions edgeOptions;
 
     private DriverManager() {
     }
@@ -55,21 +51,21 @@ public class DriverManager {
         logger.info("=== Logger: Creating remote `{}` driver ===", browser);
         switch (browser) {
             case FIREFOX:
-                firefoxOptions = new FirefoxOptions();
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.setPlatformName(platform_name);
-                setDriver(new RemoteWebDriver(new URI(HUBURL).toURL(), firefoxOptions));
+                setDriver(new RemoteWebDriver(new URI(HUB_URL).toURL(), firefoxOptions));
                 break;
 
             case EDGE:
-                edgeOptions = new EdgeOptions();
+                EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.setPlatformName(platform_name);
-                setDriver(new RemoteWebDriver(new URI(HUBURL).toURL(), edgeOptions));
+                setDriver(new RemoteWebDriver(new URI(HUB_URL).toURL(), edgeOptions));
                 break;
 
             default:
-                chromeOptions = getChromeOptions();
+                ChromeOptions chromeOptions = getChromeOptions();
                 chromeOptions.setPlatformName(platform_name);
-                setDriver(new RemoteWebDriver(new URI(HUBURL).toURL(), chromeOptions));
+                setDriver(new RemoteWebDriver(new URI(HUB_URL).toURL(), chromeOptions));
                 break;
         }
         setupDriverTimeouts();
@@ -89,7 +85,7 @@ public class DriverManager {
 
     // Setup Chrome Options
     private static ChromeOptions getChromeOptions() {
-        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("safebrowsing.enabled", "true");
         chromePrefs.put("download.prompt_for_download", "false");
         chromePrefs.put("download.default_directory",
@@ -98,7 +94,6 @@ public class DriverManager {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
-        options.addArguments("--disable-setuid-sandbox");
         options.addArguments("--disable-notifications");
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-password-manager-reauthentication");
