@@ -12,7 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
 public abstract class BasePage {
-    protected static final Logger logger = LogManager.getLogger();
+    public static final Logger logger = LogManager.getLogger();
 
     /********************************************************************
      ** Start Blocks: Group action on Element (Ex: Click, Hover...) *****

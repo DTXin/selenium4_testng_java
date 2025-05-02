@@ -1,13 +1,10 @@
 package org.example.pageObjects.LoginPage;
 
 import io.qameta.allure.Step;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.example.base.BasePage;
 import org.openqa.selenium.WebElement;
 
 public class LoginPage extends BasePage {
-    protected static final Logger logger = LogManager.getLogger();
 
     @Step("Input text to username field")
     public void inputTextToUsername(String text) {

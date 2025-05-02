@@ -51,13 +51,13 @@ public class DriverManager {
         logger.info("=== Logger: Creating remote `{}` driver ===", browser);
         switch (browser) {
             case FIREFOX:
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                FirefoxOptions firefoxOptions = getFireFoxOptions();
                 firefoxOptions.setPlatformName(platform_name);
                 setDriver(new RemoteWebDriver(new URI(HUB_URL).toURL(), firefoxOptions));
                 break;
 
             case EDGE:
-                EdgeOptions edgeOptions = new EdgeOptions();
+                EdgeOptions edgeOptions = getEdgeOptions();
                 edgeOptions.setPlatformName(platform_name);
                 setDriver(new RemoteWebDriver(new URI(HUB_URL).toURL(), edgeOptions));
                 break;

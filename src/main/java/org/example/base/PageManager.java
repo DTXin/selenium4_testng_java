@@ -14,7 +14,7 @@ public class PageManager {
     private ProductPage productPage;
     private FileHelper fileHelper;
 
-    public PageManager() {
+    private PageManager() {
     }
 
     public static PageManager getPageManager() {
@@ -29,30 +29,36 @@ public class PageManager {
         setPageManager(new PageManager());
     }
 
-    public LoginPage getLoginPage() {
-        if (loginPage == null) {
-            logger.info("=== Logger: Init object for Login page ===");
-            loginPage = new LoginPage();
+    @SuppressWarnings("unchecked")
+    public static <T> T getInstanceOfPage(T instance, String className) {
+        try {
+            if (instance == null) {
+                logger.info("=== Logger: Init object for page `{}` ===", className);
+                instance = (T) Class.forName(className).getDeclaredConstructor().newInstance();
+            }
+        } catch (Exception e) {
+            logger.error("Error initializing class: " + className, e);
         }
+
+        return instance;
+    }
+
+    public LoginPage getLoginPage() {
+        loginPage = (LoginPage) getInstanceOfPage(loginPage, LoginPage.class.getName());
         return loginPage;
     }
 
     public ProductPage getProductPage() {
-        if (productPage == null) {
-            logger.info("=== Logger: Init object for Product page ===");
-            productPage = new ProductPage();
-        }
+        productPage = (ProductPage) getInstanceOfPage(productPage, ProductPage.class.getName());
         return productPage;
     }
 
     public FileHelper getFileHelper() {
-        if (fileHelper == null) {
-            logger.info("=== Logger: Init object File Helper ===");
-            fileHelper = new FileHelper();
-        }
+        fileHelper = (FileHelper) getInstanceOfPage(fileHelper, FileHelper.class.getName());
         return fileHelper;
     }
 
+    // Remote thread when it complete.
     public static void cleanUp() {
         logger.info("=== Logger: Cleanup page manager ===");
         page.remove();
