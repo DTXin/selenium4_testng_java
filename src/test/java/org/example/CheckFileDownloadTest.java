@@ -14,7 +14,7 @@ public class CheckFileDownloadTest extends BaseTest {
 
     @Test(description = "Verify file download successful")
     public void TC01_CheckFileDownloaded() throws InterruptedException {
-        navigateToUrl();
+        // navigateToUrl();
 
         WebElement downloadBtn = DriverManager.getDriver()
                 .findElement(By.xpath("//button[text()='Download File']//parent::a"));

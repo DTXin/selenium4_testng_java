@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.pageObjects.LoginPage.LoginPage;
 import org.example.pageObjects.ProductPage.ProductPage;
+import org.example.utils.Common.Common;
 import org.example.utils.FileHelper.FileHelper;
 
 public class PageManager {
@@ -13,6 +14,8 @@ public class PageManager {
     private LoginPage loginPage;
     private ProductPage productPage;
     private FileHelper fileHelper;
+    private Common common;
+    private ConfigurationReader configuration;
 
     private PageManager() {
     }
@@ -56,6 +59,16 @@ public class PageManager {
     public FileHelper getFileHelper() {
         fileHelper = (FileHelper) getInstanceOfPage(fileHelper, FileHelper.class.getName());
         return fileHelper;
+    }
+
+    public Common getCommon() {
+        common = (Common) getInstanceOfPage(common, Common.class.getName());
+        return common;
+    }
+
+    public ConfigurationReader getConfiguration() {
+        configuration = (ConfigurationReader) getInstanceOfPage(configuration, ConfigurationReader.class.getName());
+        return configuration;
     }
 
     // Remote thread when it complete.

@@ -29,4 +29,14 @@ public class LoginPage extends BasePage {
         logger.info("User click on login button");
         loginButton.click();
     }
+
+    /*
+     * High level step
+     */
+    public void login(String username, String password) {
+        navigateToURL();
+        inputTextToUsername(username);
+        inputTextToPassword(password);
+        clickOnLoginButton();
+    }
 }

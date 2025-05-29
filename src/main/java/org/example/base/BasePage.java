@@ -155,36 +155,46 @@ public abstract class BasePage {
      **************************************************************************/
 
     // Wait element for visible
-    public void waitElementForVisible(WebElement element) {
-        logger.info("+++ Wait element `{}` for visible +++", element);
+    public void waitUntilElement_ForVisible(WebElement element) {
+        logger.info("Wait until element `{}` for visible", element);
         DriverManager.getDriverWait().until(ExpectedConditions.visibilityOf(element));
     }
 
     // Wait element for clickable
-    public void waitElementForClickable(WebElement element) {
-        logger.info("+++ Wait element `{}` for clickable +++", element);
+    public void waitUntilElement_ForClickable(WebElement element) {
+        logger.info("Wait until element `{}` for clickable", element);
         DriverManager.getDriverWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
     // Wait element for invisible
-    public void waitElementForInvisible(WebElement element) {
-        logger.info("+++ Wait element `{}` for invisible +++", element);
+    public void waitUntilElement_ForInvisible(WebElement element) {
+        logger.info("Wait until element `{}` for invisible", element);
         DriverManager.getDriverWait().until(ExpectedConditions.invisibilityOf(element));
     }
 
     // Wait until text present
-    public void waitUtilTextPresent(WebElement element, String expectedText) {
-        logger.info("+++ Wait until text `{}` for present +++", expectedText);
+    public void waitUntilText_ForPresent(WebElement element, String expectedText) {
+        logger.info("Wait until text `{}` for present", expectedText);
         DriverManager.getDriverWait().until(ExpectedConditions.textToBePresentInElement(element, expectedText));
     }
 
-    /***************************************
-     ** Start Blocks: All for popup.... ****
-     **************************************/
+    /***************************************************************************
+     ** Start Blocks: for popup or dialog boxes: Alert, Confirms, Prompts.... **
+     ***************************************************************************/
+    public void waitUntilAlertDialog_IsDisplayed() {
+        logger.info("Wait until alert/confirms/prompts dialog is displayed...");
+        DriverManager.getDriverWait().until(ExpectedConditions.alertIsPresent());
+    }
 
     /********************************
      ** Start Blocks: Other.... *****
      *******************************/
+
+    // Navigate to URL
+    public void navigateToURL() {
+        String URL = PageManager.getPageManager().getConfiguration().getBaseUrl();
+        DriverManager.getDriver().navigate().to(URL);
+    }
 
     // Get current URL of page
     public String getCurrentURL() {
@@ -258,7 +268,7 @@ public abstract class BasePage {
     }
 
     // Check a element displays in view port
-    public boolean isElemntDisplays_InViewPort(WebElement element) {
+    public boolean isElementDisplays_InViewPort(WebElement element) {
         boolean result = false;
 
         // Get coordinate X and Y of element
