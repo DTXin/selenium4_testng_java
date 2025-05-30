@@ -12,6 +12,6 @@ public class ProductPage extends BasePage {
         WebElement app_logo = getElementByXpath(ProductPageLocators.LOGO_XPATH);
 
         logger.info("Verify product page is displayed = `{}`", app_logo.isDisplayed());
-        Assert.assertTrue(app_logo.isDisplayed(), "Product page is not displayed.");
+        Assert.assertTrue(1 == 0, "Product page is not displayed.");
     }
 }
