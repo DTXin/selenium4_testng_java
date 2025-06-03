@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.base.DriverManager;
-import org.example.base.BaseTest;
+import org.example.fw.base.BaseTest;
+import org.example.fw.manager.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasAuthentication;
 import org.openqa.selenium.UsernameAndPassword;

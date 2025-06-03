@@ -1,8 +1,9 @@
 package org.example.pageObjects.LoginPage;
 
 import io.qameta.allure.Step;
-import org.example.base.BasePage;
+import org.example.fw.base.BasePage;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 public class LoginPage extends BasePage {
 
@@ -28,6 +29,14 @@ public class LoginPage extends BasePage {
 
         logger.info("User click on login button");
         loginButton.click();
+    }
+
+    @Step("Verify error is displayed after login failed")
+    public void verifyErrorDisplayed() {
+        WebElement error = getElementByXpath(LoginPageLocators.ERROR);
+
+        logger.info("User click on login button");
+        Assert.assertTrue(error.isDisplayed(), "Error is NOT displayed");
     }
 
     /*

@@ -1,4 +1,4 @@
-package org.example.utils.ExcelHelper;
+package org.example.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -193,15 +193,5 @@ public class ExcelHelper {
                 fileName);
         closeWorkbook(workbook);
         return isColumnHeaderExists;
-    }
-
-    public static void main(String[] args) {
-        String fileName = "D:\\Drink Order.xlsx";
-        String sheetName = "Sheet1";
-
-        ExcelHelper excelHelper = new ExcelHelper();
-
-        var result = excelHelper.getRowIndex(fileName, sheetName, "Tên", "Diem", 0);
-        System.out.println("Ket qua la: " + result);
     }
 }

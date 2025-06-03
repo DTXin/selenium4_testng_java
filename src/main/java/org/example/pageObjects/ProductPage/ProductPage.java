@@ -1,7 +1,7 @@
 package org.example.pageObjects.ProductPage;
 
 import io.qameta.allure.Step;
-import org.example.base.BasePage;
+import org.example.fw.base.BasePage;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 

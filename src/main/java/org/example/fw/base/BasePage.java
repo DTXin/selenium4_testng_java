@@ -1,4 +1,4 @@
-package org.example.base;
+package org.example.fw.base;
 
 import java.util.List;
 import java.util.Date;
@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.fw.manager.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
-public abstract class BasePage {
+public class BasePage {
     public static final Logger logger = LogManager.getLogger();
 
     /********************************************************************
@@ -192,7 +193,7 @@ public abstract class BasePage {
 
     // Navigate to URL
     public void navigateToURL() {
-        String URL = PageManager.getPageManager().getConfiguration().getBaseUrl();
+        String URL = "https://www.saucedemo.com/";
         DriverManager.getDriver().navigate().to(URL);
     }
 

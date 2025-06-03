@@ -1,4 +1,4 @@
-package org.example.base;
+package org.example.fw.manager;
 
 import java.net.URI;
 import java.nio.file.Paths;
@@ -8,6 +8,8 @@ import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.fw.Config;
+import org.example.fw.enums.Browsers;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,19 +19,13 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ThreadGuard;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DriverManager {
     private static final Logger logger = LogManager.getLogger();
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    private static final ThreadLocal<WebDriverWait> driverWait = new ThreadLocal<>();
-
-    private static final String NO_SANDBOX = "--no-sandbox";
-    private static final String DISABLE_DEV_SHM = "--disable-dev-shm-usage";
-    private static final String HEADLESS = "--headless";
-    private static final String REMOTE_URL = PageManager.getPageManager().getConfiguration().getRemoteURL();
-    private static final long TIMEOUT = PageManager.getPageManager().getConfiguration().getTimeout();
-    private static final long TIMEOUT_WAIT = PageManager.getPageManager().getConfiguration().getTimeoutWait();
+    private static WebDriverWait driverWait;
 
     private DriverManager() {
     }
@@ -49,19 +45,19 @@ public class DriverManager {
     // Setup local driver for chrome
     private static void setupChromeDriver() {
         logger.info("=== Setup local driver for chrome ===");
-        setDriver(new ChromeDriver(getChromeOptions()));
+        setDriver(ThreadGuard.protect(new ChromeDriver(getChromeOptions())));
     }
 
     // Setup local driver for firefox
     private static void setupFireFoxDriver() {
         logger.info("=== Setup local driver for firefox ===");
-        setDriver(new FirefoxDriver(getFireFoxOptions()));
+        setDriver(ThreadGuard.protect(new FirefoxDriver(getFireFoxOptions())));
     }
 
     // Setup local driver for edge
     private static void setupEdgeDriver() {
         logger.info("=== Setup local driver for edge ===");
-        setDriver(new EdgeDriver(getEdgeOptions()));
+        setDriver(ThreadGuard.protect(new EdgeDriver(getEdgeOptions())));
     }
 
     // Setup remote driver for chrome
@@ -69,7 +65,7 @@ public class DriverManager {
         try {
             logger.info("=== Creating remote driver for chrome ===");
             ChromeOptions chromeOptions = getChromeOptions();
-            setDriver(new RemoteWebDriver(new URI(REMOTE_URL).toURL(), chromeOptions));
+            setDriver(ThreadGuard.protect(new RemoteWebDriver(new URI(Config.REMOTE_URL).toURL(), chromeOptions)));
         } catch (Exception e) {
             logger.error("Error setting remote driver for chrome", e);
         }
@@ -80,7 +76,7 @@ public class DriverManager {
         try {
             logger.info("=== Creating remote driver for firefox ===");
             FirefoxOptions firefoxOptions = getFireFoxOptions();
-            setDriver(new RemoteWebDriver(new URI(REMOTE_URL).toURL(), firefoxOptions));
+            setDriver(ThreadGuard.protect(new RemoteWebDriver(new URI(Config.REMOTE_URL).toURL(), firefoxOptions)));
         } catch (Exception e) {
             logger.error("Error setting remote driver for firefox", e);
         }
@@ -91,22 +87,22 @@ public class DriverManager {
         try {
             logger.info("=== Creating remote driver for edge ===");
             EdgeOptions edgeOptions = getEdgeOptions();
-            setDriver(new RemoteWebDriver(new URI(REMOTE_URL).toURL(), edgeOptions));
+            setDriver(ThreadGuard.protect(new RemoteWebDriver(new URI(Config.REMOTE_URL).toURL(), edgeOptions)));
         } catch (Exception e) {
             logger.error("Error setting remote driver for edge", e);
         }
     }
 
     private static void setupDriverTimeouts() {
-        logger.info("=== Logger: Setting driver timeouts = `{}` for all ...", TIMEOUT);
+        logger.info("=== Logger: Setting driver timeouts = `{}` for all ...", Config.TIMEOUT);
 
         // set timeout for WebDriver
-        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(TIMEOUT));
-        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TIMEOUT));
-        getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(TIMEOUT));
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Config.TIMEOUT));
+        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(Config.TIMEOUT));
+        getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(Config.TIMEOUT));
 
         // Set timeout for WebDriverWait
-        setDriverWait(new WebDriverWait(getDriver(), Duration.ofSeconds(TIMEOUT_WAIT)));
+        setDriverWait(new WebDriverWait(getDriver(), Duration.ofSeconds(Config.TIMEOUT_WAITS)));
     }
 
     // Setup Chrome Options
@@ -118,12 +114,12 @@ public class DriverManager {
                 String.valueOf(Paths.get(System.getProperty("user.dir"), "/src/test/resources/download")));
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(DISABLE_DEV_SHM);
-        options.addArguments(NO_SANDBOX);
+        options.addArguments(Config.DISABLE_DEV_SHM);
+        options.addArguments(Config.NO_SANDBOX);
 
         var isHeadless = Boolean.parseBoolean(Objects.requireNonNullElse(System.getProperty("headless"), "false"));
         if (isHeadless) {
-            options.addArguments(HEADLESS);
+            options.addArguments(Config.HEADLESS);
         }
 
         options.setExperimentalOption("prefs", chromePrefs);
@@ -136,8 +132,8 @@ public class DriverManager {
     // Setup Firefox Options
     private static FirefoxOptions getFireFoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments(NO_SANDBOX);
-        options.addArguments(DISABLE_DEV_SHM);
+        options.addArguments(Config.NO_SANDBOX);
+        options.addArguments(Config.DISABLE_DEV_SHM);
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 
         return options;
@@ -156,7 +152,7 @@ public class DriverManager {
     }
 
     public static WebDriverWait getDriverWait() {
-        return driverWait.get();
+        return driverWait;
     }
 
     public static void setDriver(WebDriver webDriver) {
@@ -164,7 +160,7 @@ public class DriverManager {
     }
 
     public static void setDriverWait(WebDriverWait webDriverWait) {
-        driverWait.set(webDriverWait);
+        driverWait = webDriverWait;
     }
 
     public static void closeDriver() {

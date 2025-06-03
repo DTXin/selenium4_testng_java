@@ -1,4 +1,4 @@
-package org.example.base;
+package org.example.fw.enums;
 
 public enum Browsers {
     CHROME,

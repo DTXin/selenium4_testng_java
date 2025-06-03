@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import org.testng.Assert;
-import org.example.base.BaseTest;
-import org.example.base.DriverManager;
+import org.example.fw.base.BaseTest;
+import org.example.fw.manager.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.locators.RelativeLocator;

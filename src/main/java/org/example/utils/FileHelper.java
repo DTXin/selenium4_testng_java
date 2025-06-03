@@ -1,4 +1,4 @@
-package org.example.utils.FileHelper;
+package org.example.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;

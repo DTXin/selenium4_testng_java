@@ -1,4 +1,4 @@
-package org.example.base;
+package org.example.fw.listener;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
@@ -6,11 +6,11 @@ import org.testng.ITestResult;
 public class TestRetryAnalyzer implements IRetryAnalyzer {
 
     int counter = 0;
-    int retryMaxLimit  = 1;
+    int retryMaxLimit = 1;
 
     @Override
     public boolean retry(ITestResult result) {
-        if(counter < retryMaxLimit) {
+        if (counter < retryMaxLimit) {
             counter++;
             return true;
         }

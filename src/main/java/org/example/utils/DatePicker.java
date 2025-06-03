@@ -1,4 +1,4 @@
-package org.example.utils.DatePicker;
+package org.example.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,10 +40,4 @@ public class DatePicker {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
         System.out.println(simpleDateFormat.format(date.getTime()));
     }
-
-    public static void main(String[] args) {
-        DatePicker datePicker = new DatePicker();
-        datePicker.getDate(5);
-    }
-
 }

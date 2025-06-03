@@ -10,8 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 
-import org.example.base.BaseTest;
-import org.example.base.DriverManager;
+import org.example.fw.base.BaseTest;
+import org.example.fw.manager.DriverManager;
 import org.openqa.selenium.Pdf;
 import org.openqa.selenium.PrintsPage;
 import org.openqa.selenium.print.PrintOptions;

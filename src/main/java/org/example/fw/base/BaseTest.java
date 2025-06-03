@@ -1,22 +1,23 @@
-package org.example.base;
+package org.example.fw.base;
 
+import org.example.fw.enums.Browsers;
+import org.example.fw.manager.DriverManager;
+import org.example.fw.manager.PageManager;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
-public abstract class BaseTest {
+public class BaseTest extends PageManager {
 
     @Parameters({ "browser" })
     @BeforeMethod(alwaysRun = true)
     public void init(@Optional("chrome") String browser) {
-        PageManager.getInstance();
         DriverManager.createDriver(Browsers.valueOf(browser.toUpperCase()));
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
         DriverManager.closeDriver();
-        PageManager.cleanUp();
     }
 }

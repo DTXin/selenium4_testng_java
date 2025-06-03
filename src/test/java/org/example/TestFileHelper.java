@@ -1,8 +1,9 @@
 package org.example;
 
 import java.io.File;
-import org.example.base.BaseTest;
-import org.example.utils.FileHelper.*;
+
+import org.example.fw.base.BaseTest;
+import org.example.utils.FileHelper;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 

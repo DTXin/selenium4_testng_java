@@ -3,7 +3,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.base.BaseTest;
+import org.example.fw.base.BaseTest;
 import org.testng.TestNG;
 import org.testng.annotations.Test;
 
