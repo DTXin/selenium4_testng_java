@@ -1,4 +1,4 @@
-package org.example;
+package org.example.otherdemo;
 
 import org.example.fw.base.BaseTest;
 import org.example.fw.manager.DriverManager;

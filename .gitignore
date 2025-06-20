@@ -1,5 +1,6 @@
 .allure-report/
 .allure-results/
+.logs/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar

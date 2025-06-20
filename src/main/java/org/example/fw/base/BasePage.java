@@ -1,6 +1,7 @@
 package org.example.fw.base;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.example.fw.manager.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
@@ -35,7 +37,15 @@ public class BasePage {
         ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].click();", element);
     }
 
-    // Get text of element by javascript
+    // Select a text from dropdown
+    public void selectTextOnDropdown(WebElement dropdown, String selectText) {
+        logger.info("Select a text: {} on dropdown: {}", selectText, dropdown);
+
+        Select select = new Select(dropdown);
+        select.selectByVisibleText(selectText);
+    }
+
+    // Get text of an element by javascript
     public String getText_ByJavaScript(WebElement element) {
         logger.info("Get text of an element (by javascript): `{}`", element);
 
@@ -44,6 +54,13 @@ public class BasePage {
 
         logger.info("Text of element is: `{}`", textOfElement);
         return textOfElement;
+    }
+
+    // Get text of elements
+    public List<String> getTextAllElements(List<WebElement> elements) {
+        logger.info("Get text of multiple element.");
+
+        return elements.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     /********************************************************************

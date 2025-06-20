@@ -2,6 +2,7 @@ package org.example.fw.manager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.pageObjects.CartPage.CartPage;
 import org.example.pageObjects.LoginPage.LoginPage;
 import org.example.pageObjects.ProductPage.ProductPage;
 import org.example.utils.Common;
@@ -12,6 +13,7 @@ public class PageManager {
 
     private LoginPage loginPage;
     private ProductPage productPage;
+    private CartPage cartPage;
     private FileHelper fileHelper;
     private Common common;
 
@@ -40,6 +42,11 @@ public class PageManager {
     public ProductPage getProductPage() {
         productPage = (ProductPage) getInstanceOfPage(productPage, ProductPage.class.getName());
         return productPage;
+    }
+
+    public CartPage getCartPage() {
+        cartPage = (CartPage) getInstanceOfPage(cartPage, CartPage.class.getName());
+        return cartPage;
     }
 
     public FileHelper getFileHelper() {

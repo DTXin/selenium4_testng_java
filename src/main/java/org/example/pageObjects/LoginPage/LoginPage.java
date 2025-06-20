@@ -32,10 +32,10 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Verify error is displayed after login failed")
-    public void verifyErrorDisplayed() {
+    public void verifyErrorIsDisplayed() {
         WebElement error = getElementByXpath(LoginPageLocators.ERROR);
 
-        logger.info("User click on login button");
+        logger.info("Verify error message container is displayed after login failed = {}", error.isDisplayed());
         Assert.assertTrue(error.isDisplayed(), "Error is NOT displayed");
     }
 
