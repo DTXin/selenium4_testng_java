@@ -4,73 +4,63 @@ import org.example.fw.base.BasePage;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import io.qameta.allure.Step;
+
 public class CartPage extends BasePage {
 
-    // Click on checkout button
+    /*****************************
+     *** Action methods **********
+     *****************************/
+
+    @Step("[Cart Page] Click on checkout button")
     public void clickOnCheckoutButton() {
-        logger.info("User click on checkout button.");
-
         WebElement checkoutButton = getElementByXpath(CartPageLocators.CHECKOUT_BUTTON);
-        checkoutButton.click();
+        clickToElement_ByJavascript(checkoutButton);
     }
 
-    // Click on continue shopping button
+    @Step("[Cart Page] Click on continue shopping button")
     public void clickOnContinueShoppingButton() {
-        logger.info("User click on continue shopping button.");
-
         WebElement continueShoppingButton = getElementByXpath(CartPageLocators.CONTINUE_SHOPPING_BUTTON);
-        continueShoppingButton.click();
+        clickToElement_ByJavascript(continueShoppingButton);
     }
 
-    // Click on remove button for a specific item
+    @Step("[Cart Page] Click on remove button for a specific item: {itemName}")
     public void clickOnRemoveButton(String itemName) {
-        logger.info("User click on remove button of item: {}", itemName);
-
         String elementXpath = String.format(CartPageLocators.REMOVE_BUTTON, itemName);
         WebElement removeButton = getElementByXpath(elementXpath);
-        removeButton.click();
+        clickToElement_ByJavascript(removeButton);
     }
 
-    // Verify if the cart page is displayed
-    public void verifyCartPage_IsDisplayed() {
-        WebElement cartPageHeader = getElementByXpath(CartPageLocators.CART_PAGE);
+    /*****************************
+     *** Verify methods **********
+     *****************************/
 
-        logger.info("Verify cart page is displayed {}.", cartPageHeader.isDisplayed());
-        Assert.assertTrue(cartPageHeader.isDisplayed(), "Cart page is NOT displayed.");
+    @Step("[Cart Page] Verify header of cart page is displayed")
+    public void verify_HeaderOfCartPage_IsDisplayed() {
+        WebElement cartPageHeader = getElementByXpath(CartPageLocators.HEADER_TITLE_CARTPAGE);
+
+        Assert.assertTrue(cartPageHeader.isDisplayed());
     }
 
-    // Verify checkout button is displayed
-    public void verifyCheckoutButton_IsDisplayed() {
+    @Step("[Cart Page] Verify checkout button is displayed")
+    public void verify_CheckoutButton_IsDisplayed() {
         WebElement checkoutButton = getElementByXpath(CartPageLocators.CHECKOUT_BUTTON);
 
-        logger.info("Verify checkout button is displayed.");
-        Assert.assertTrue(checkoutButton.isDisplayed(), "Checkout buttong is NOT displayed.");
+        Assert.assertTrue(checkoutButton.isDisplayed());
     }
 
-    // Verify continue shopping button is displayed
-    public void verifyContinueShoppingButton_IsDisplayed() {
+    @Step("[Cart Page] Verify continue shopping button is displayed")
+    public void isContinueShoppingButtonDisplayed() {
         WebElement continueShoppingButotn = getElementByXpath(CartPageLocators.CONTINUE_SHOPPING_BUTTON);
 
-        logger.info("Verify continue shopping button is displayed.");
-        Assert.assertTrue(continueShoppingButotn.isDisplayed(), "Continue shopping is NOT displayed.");
+        Assert.assertTrue(continueShoppingButotn.isDisplayed());
     }
 
-    // Verify an item is in the cart
-    public void verifyItemInCart(String itemName) {
+    @Step("[Cart Page] Verify item name: {itemName} exist in the cart")
+    public void verify_ItemName_ExistInCart(String itemName) {
         String elementXpath = String.format(CartPageLocators.CART_ITEM_NAME);
         WebElement item = getElementByXpath(elementXpath);
 
-        logger.info("Verify item name: {} is in the cart.", itemName);
-        Assert.assertTrue(item.isDisplayed(), "Item name is NOT in the cart");
+        Assert.assertTrue(item.isDisplayed());
     }
-
-    // Verify an item is not in the cart
-    public void verifyItemNotInCart(String itemName) {
-        String elementXpath = String.format(CartPageLocators.CART_ITEM_NAME);
-        WebElement item = getElementByXpath(elementXpath);
-
-        logger.info("Verify item name: {} is not in the cart.", itemName);
-        Assert.assertFalse(item.isDisplayed(), "Item name is in the cart");
-    }
-
 }

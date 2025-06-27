@@ -9,13 +9,13 @@ public class LoginTest extends BaseTest {
     @Test(description = "Verify login successfully!", dataProvider = "valid-logins")
     public void TC01_ValidLogin(String username, String password) {
         getLoginPage().login(username, password);
-        getProductPage().verifyProductPageIsDisplayed();
+        getProductPage().verify_ProductPage_IsDisplayed();
     }
 
     @Test(description = "Verify login unsuccessfully!")
     public void TC02_InvalidLogin() {
-        getLoginPage().login("invalid_user", "invalid_password");
-        getLoginPage().verifyErrorIsDisplayed();
+        getLoginPage().login("standard_user", "wrong_pass");
+        getLoginPage().verify_ErrorMessageContainer_IsDisplayed();
     }
 
     @DataProvider(name = "valid-logins")

@@ -21,6 +21,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ThreadGuard;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import io.qameta.allure.Step;
 
 public class DriverManager {
     private static final Logger logger = LogManager.getLogger();
@@ -30,6 +31,7 @@ public class DriverManager {
     private DriverManager() {
     }
 
+    @Step("Creating driver for browser: {browser}")
     public static void createDriver(final Browsers browser) {
         switch (browser) {
             case FIREFOX -> setupFireFoxDriver();
@@ -114,8 +116,11 @@ public class DriverManager {
                 String.valueOf(Paths.get(System.getProperty("user.dir"), "/src/test/resources/download")));
 
         ChromeOptions options = new ChromeOptions();
+        options.addArguments(Config.INCOGNITO_MODE);
         options.addArguments(Config.DISABLE_DEV_SHM);
         options.addArguments(Config.NO_SANDBOX);
+        options.addArguments(Config.DISABLE_NOTIFICATIONS);
+        options.addArguments(Config.DISABLE_POPUP_BLOCKING);
 
         var isHeadless = Boolean.parseBoolean(Objects.requireNonNullElse(System.getProperty("headless"), "false"));
         if (isHeadless) {

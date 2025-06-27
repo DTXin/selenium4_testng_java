@@ -30,11 +30,20 @@ public class BasePage {
     }
 
     // Click an element using javascript executor.
-    public void clickToElement_ByJavaScript(WebElement element) {
+    public void clickToElement_ByJavascript(WebElement element) {
         scrollToElement(element);
 
         logger.info("Click to element (by javascript): `{}`", element);
         ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].click();", element);
+    }
+
+    // Input text to an element using javascript executor.
+    public void inputText_ByJavascript(WebElement element, String textValue) {
+        scrollToElement(element);
+
+        logger.info("Input text to element (by javascript): `{}`", element);
+        ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].value='" + textValue + "';",
+                element);
     }
 
     // Select a text from dropdown
@@ -207,12 +216,6 @@ public class BasePage {
     /********************************
      ** Start Blocks: Other.... *****
      *******************************/
-
-    // Navigate to URL
-    public void navigateToURL() {
-        String URL = "https://www.saucedemo.com/";
-        DriverManager.getDriver().navigate().to(URL);
-    }
 
     // Get current URL of page
     public String getCurrentURL() {
