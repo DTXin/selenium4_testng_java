@@ -12,7 +12,7 @@
         <!-- <parameter name="runmode" value="grid" /> -->
         <parameter name="platform_name" value="Windows 10" />
         <classes>
-            <class name="org.example.FailedTestCase"/>
+            <class name="org.example.ui.otherdemo.FailedTestCase"/>
         </classes>
     </test>
 </suite>

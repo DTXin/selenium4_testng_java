@@ -22,6 +22,9 @@
         <poi.version>5.4.1</poi.version>
         <poi-ooxml.version>5.4.1</poi-ooxml.version>
         <aspectj.version>1.9.24</aspectj.version>
+        <rest-assured.version>5.5.5</rest-assured.version>
+        <gson.version>2.13.1</gson.version>
+        <data-faker.version>2.4.2</data-faker.version>
     </properties>
 
     <dependencies>
@@ -74,18 +77,40 @@
             <version>${allure-testng.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>  
             <groupId>org.apache.poi</groupId>  
             <artifactId>poi</artifactId>  
             <version>${poi.version}</version>  
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>${poi-ooxml.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>${data-faker.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

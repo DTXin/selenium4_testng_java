@@ -1,9 +1,0 @@
-2025-03-14 17:30:32.554 [TestNG-test-Test - Chrome-1] INFO  org.example.base.DriverManager - === Logger: Creating local `chrome` driver ===
-2025-03-14 17:30:34.176 [TestNG-test-Test - Chrome-1] INFO  org.example.base.DriverManager - === Logger: Setting driver timeouts = `20` for all ...
-2025-03-14 17:30:36.502 [TestNG-test-Test - Chrome-1] INFO  org.example.base.PageManager - === Logger: Init object `org.example.utils.FileHelper.FileHelper` ===
-2025-03-14 17:30:36.502 [TestNG-test-Test - Chrome-1] INFO  org.example.utils.FileHelper.FileHelper - Downloading file from url `https://www.lambdatest.com/resources/images/LambdaTest.pdf`
-2025-03-14 17:30:36.504 [TestNG-test-Test - Chrome-1] INFO  org.example.utils.FileHelper.FileHelper - Create a new certificates to apply for https request...
-2025-03-14 17:30:37.305 [TestNG-test-Test - Chrome-1] INFO  org.example.utils.FileHelper.FileHelper - Check file download: `LambdaTest.pdf`
-2025-03-14 17:30:37.305 [TestNG-test-Test - Chrome-1] INFO  org.example.utils.FileHelper.FileHelper - File `LambdaTest.pdf` is downloaded successfully
-2025-03-14 17:30:37.320 [TestNG-test-Test - Chrome-1] INFO  org.example.base.DriverManager - === Logger: Closing the driver ===
-2025-03-14 17:30:37.571 [TestNG-test-Test - Chrome-1] INFO  org.example.base.PageManager - === Logger: Cleanup page manager ===

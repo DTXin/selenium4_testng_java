@@ -8,7 +8,7 @@
         <!-- <parameter name="runmode" value="grid" /> -->
         <parameter name="platform_name" value="Windows 10" />
         <classes>
-            <class name="org.example.BasicAuthentication"/>
+            <class name="org.example.ui.otherdemo.BasicAuthentication"/>
         </classes>
     </test>
 </suite>
