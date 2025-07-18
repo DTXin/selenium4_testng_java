@@ -11,4 +11,4 @@ RUN mvn clean package -DskipTests
 FROM maven:3.9.9-ibm-semeru-21-jammy
 WORKDIR /app
 COPY --from=build /app .
-CMD ["mvn", "clean", "test", "-DsuiteXmlFile=test-suite/testng.xml"]
+CMD ["mvn", "clean", "test", "-DsuiteXmlFile=test-suite/saucedemo/testng_grid.xml"]

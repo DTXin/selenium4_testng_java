@@ -21,8 +21,8 @@ public class Test_PrintPageToPDF extends BaseTest {
     @Test(description = "Print page to PDF")
     public void TC01_PrintPageToPDF() throws IOException {
 
-        DriverManager.getDriver().get("https://bonigarcia.dev/selenium-webdriver-java/");
-        PrintsPage pg = (PrintsPage) DriverManager.getDriver();
+        getDriver().get("https://bonigarcia.dev/selenium-webdriver-java/");
+        PrintsPage pg = (PrintsPage) getDriver();
         PrintOptions printOptions = new PrintOptions();
         Pdf pdf = pg.print(printOptions);
         String pdfBase64 = pdf.getContent();

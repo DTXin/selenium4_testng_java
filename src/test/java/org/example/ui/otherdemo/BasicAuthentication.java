@@ -14,10 +14,10 @@ public class BasicAuthentication extends BaseTest {
     @Test(description = "Verify basic authentication")
     public void TC01_Login_With_BasicAuthentication() throws Exception {
 
-        ((HasAuthentication) DriverManager.getDriver()).register(() -> new UsernameAndPassword("guest", "guest"));
+        ((HasAuthentication) getDriver()).register(() -> new UsernameAndPassword("guest", "guest"));
 
-        DriverManager.getDriver().get("https://jigsaw.w3.org/HTTP/Basic/");
-        WebElement body = DriverManager.getDriver().findElement(By.tagName("body"));
+        getDriver().get("https://jigsaw.w3.org/HTTP/Basic/");
+        WebElement body = getDriver().findElement(By.tagName("body"));
         Assert.assertTrue(body.getText().contains("Your browser made it!"));
     }
 

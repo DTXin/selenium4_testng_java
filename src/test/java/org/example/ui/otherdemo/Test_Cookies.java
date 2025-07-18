@@ -14,17 +14,16 @@ public class Test_Cookies extends BaseTest {
 
     @Test(description = "Login and save cookie")
     public void TC01_LoginAndSaveCookie() throws InterruptedException {
-        DriverManager.getDriver().get("https://en.wikipedia.org/");
-        DriverManager.getDriver().findElement(By.xpath("//input[@id='wpName1']")).clear();
-        DriverManager.getDriver().findElement(By.xpath("//input[@id='wpName1']")).sendKeys("Dinhtranxin");
-        ;
-        DriverManager.getDriver().findElement(By.xpath("//input[@id='wpPassword1']")).clear();
-        DriverManager.getDriver().findElement(By.xpath("//input[@id='wpPassword1']")).sendKeys("8QuxNQhu.2f3smP");
-        DriverManager.getDriver().findElement(By.xpath("//button[@type='submit']")).click();
+        getDriver().get("https://en.wikipedia.org/");
+        getDriver().findElement(By.xpath("//input[@id='wpName1']")).clear();
+        getDriver().findElement(By.xpath("//input[@id='wpName1']")).sendKeys("Dinhtranxin");
+        getDriver().findElement(By.xpath("//input[@id='wpPassword1']")).clear();
+        getDriver().findElement(By.xpath("//input[@id='wpPassword1']")).sendKeys("8QuxNQhu.2f3smP");
+        getDriver().findElement(By.xpath("//button[@type='submit']")).click();
 
         Thread.sleep(5000);
 
-        cookies = DriverManager.getDriver().manage().getCookies();
+        cookies = getDriver().manage().getCookies();
 
         for (Cookie cookie : cookies) {
             System.out.println("Cookies generated are ==> " + cookie);
@@ -35,13 +34,13 @@ public class Test_Cookies extends BaseTest {
 
     @Test(description = "Login with cookie")
     public void TC01_LoginWithCookie() throws InterruptedException {
-        DriverManager.getDriver().get("https://en.wikipedia.org/");
+        getDriver().get("https://en.wikipedia.org/");
 
         for (Cookie cookie : cookies) {
-            DriverManager.getDriver().manage().addCookie(cookie);
+            getDriver().manage().addCookie(cookie);
         }
 
-        DriverManager.getDriver().navigate().refresh();
+        getDriver().navigate().refresh();
 
         Thread.sleep(20000);
 

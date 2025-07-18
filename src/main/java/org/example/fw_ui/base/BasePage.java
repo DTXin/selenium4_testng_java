@@ -14,8 +14,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
-public class BasePage {
-    public static final Logger logger = LogManager.getLogger();
+public class BasePage extends DriverManager {
+    public final Logger logger = LogManager.getLogger();
 
     /********************************************************************
      ** Start Blocks: Group action on Element (Ex: Click, Hover...) *****
@@ -34,7 +34,7 @@ public class BasePage {
         scrollToElement(element);
 
         logger.info("Click to element (by javascript): `{}`", element);
-        ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].click();", element);
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", element);
     }
 
     // Input text to an element using javascript executor.
@@ -42,8 +42,7 @@ public class BasePage {
         scrollToElement(element);
 
         logger.info("Input text to element (by javascript): `{}`", element);
-        ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].value='" + textValue + "';",
-                element);
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].value='" + textValue + "';", element);
     }
 
     // Select a text from dropdown
@@ -58,7 +57,7 @@ public class BasePage {
     public String getText_ByJavaScript(WebElement element) {
         logger.info("Get text of an element (by javascript): `{}`", element);
 
-        String textOfElement = (String) ((JavascriptExecutor) DriverManager.getDriver())
+        String textOfElement = (String) ((JavascriptExecutor) getDriver())
                 .executeScript("return arguments[0].value;", element);
 
         logger.info("Text of element is: `{}`", textOfElement);
@@ -79,39 +78,21 @@ public class BasePage {
     // Scroll into view of the browser window
     public void scrollToElement(WebElement element) {
         logger.info("Scroll to element into view...: `{}`", element);
-        ((JavascriptExecutor) DriverManager.getDriver()).executeScript(
+        ((JavascriptExecutor) getDriver()).executeScript(
                 "arguments[0].scrollIntoView({block: \"center\",inline: \"center\",behavior: \"smooth\"});", element);
     }
 
     // Scroll to top in page
     public void scrollToTop() {
         logger.info("Scroll up to footer page...");
-        ((JavascriptExecutor) DriverManager.getDriver()).executeScript("document.documentElement.scrollTop = 0;");
+        ((JavascriptExecutor) getDriver()).executeScript("document.documentElement.scrollTop = 0;");
     }
 
     // Scroll to bottom in page
     public void scrollToBottom() {
         logger.info("Scroll down to footer page...");
-        ((JavascriptExecutor) DriverManager.getDriver())
+        ((JavascriptExecutor) getDriver())
                 .executeScript("window.scrollTo(0, document.body.scrollHeight)");
-    }
-
-    // Check scroll bar is displayed
-    public boolean checkScrollBar_IsDisplayed(WebElement element, String scrollBarType) {
-        boolean result = false;
-
-        String scrollBar_Horizontal = "return arguments[0].scrollHeight > arguments[0].offsetWidth;";
-        String scrollBar_Vertical = "return arguments[0].scrollHeight > arguments[0].offsetHeight;";
-        JavascriptExecutor jse = (JavascriptExecutor) DriverManager.getDriver();
-
-        if (scrollBarType.equalsIgnoreCase("Horizontal")) {
-            result = (boolean) jse.executeScript(scrollBar_Horizontal, element);
-        } else if (scrollBarType.equalsIgnoreCase("Vertical")) {
-            result = (boolean) jse.executeScript(scrollBar_Vertical, element);
-        }
-
-        logger.info("Result of scroll bar `{}` is displayed: `{}`", scrollBarType, result);
-        return result;
     }
 
     /********************************************************************
@@ -127,7 +108,7 @@ public class BasePage {
 
         try {
             logger.info("Convert xpath element to web element: xpath is `{}` ", xpath);
-            webElement = DriverManager.getDriver().findElement(By.xpath(xpath));
+            webElement = getDriver().findElement(By.xpath(xpath));
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
@@ -141,7 +122,7 @@ public class BasePage {
 
         try {
             logger.info("Convert xpath of a list element to list webElement: xpath is `{}` ", xpath);
-            listElement = DriverManager.getDriver().findElements(By.xpath(xpath));
+            listElement = getDriver().findElements(By.xpath(xpath));
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
@@ -155,7 +136,7 @@ public class BasePage {
 
         try {
             logger.info("Convert css element to web element: css is `{}` ", css);
-            webElement = DriverManager.getDriver().findElement(By.cssSelector(css));
+            webElement = getDriver().findElement(By.cssSelector(css));
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
@@ -169,7 +150,7 @@ public class BasePage {
 
         try {
             logger.info("Convert css of a list element to list webElement: css is `{}` ", css);
-            listElement = DriverManager.getDriver().findElements(By.cssSelector(css));
+            listElement = getDriver().findElements(By.cssSelector(css));
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
@@ -184,33 +165,33 @@ public class BasePage {
     // Wait element for visible
     public void waitUntilElement_ForVisible(WebElement element) {
         logger.info("Wait until element `{}` for visible", element);
-        DriverManager.getDriverWait().until(ExpectedConditions.visibilityOf(element));
+        getDriverWait().until(ExpectedConditions.visibilityOf(element));
     }
 
     // Wait element for clickable
     public void waitUntilElement_ForClickable(WebElement element) {
         logger.info("Wait until element `{}` for clickable", element);
-        DriverManager.getDriverWait().until(ExpectedConditions.elementToBeClickable(element));
+        getDriverWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
     // Wait element for invisible
     public void waitUntilElement_ForInvisible(WebElement element) {
         logger.info("Wait until element `{}` for invisible", element);
-        DriverManager.getDriverWait().until(ExpectedConditions.invisibilityOf(element));
+        getDriverWait().until(ExpectedConditions.invisibilityOf(element));
     }
 
     // Wait until text present
     public void waitUntilText_ForPresent(WebElement element, String expectedText) {
         logger.info("Wait until text `{}` for present", expectedText);
-        DriverManager.getDriverWait().until(ExpectedConditions.textToBePresentInElement(element, expectedText));
+        getDriverWait().until(ExpectedConditions.textToBePresentInElement(element, expectedText));
     }
 
     /***************************************************************************
      ** Start Blocks: for popup or dialog boxes: Alert, Confirms, Prompts.... **
      ***************************************************************************/
-    public void waitUntilAlertDialog_IsDisplayed() {
+    public void waitUntil_AlertDialog_IsDisplayed() {
         logger.info("Wait until alert/confirms/prompts dialog is displayed...");
-        DriverManager.getDriverWait().until(ExpectedConditions.alertIsPresent());
+        getDriverWait().until(ExpectedConditions.alertIsPresent());
     }
 
     /********************************
@@ -219,9 +200,9 @@ public class BasePage {
 
     // Get current URL of page
     public String getCurrentURL() {
-        String url = DriverManager.getDriver().getCurrentUrl();
+        String url = getDriver().getCurrentUrl();
 
-        logger.info("The current URL: " + url);
+        logger.info("The current URL: {}", url);
         return url;
     }
 
@@ -229,25 +210,25 @@ public class BasePage {
     public void closeAllTabsExceptFirstTab() {
         logger.info("Close all tabs and except the first one...");
 
-        String originalTab = DriverManager.getDriver().getWindowHandle();
-        for (String tab : DriverManager.getDriver().getWindowHandles()) {
+        String originalTab = getDriver().getWindowHandle();
+        for (String tab : getDriver().getWindowHandles()) {
             if (!tab.equals(originalTab)) {
-                DriverManager.getDriver().switchTo().window(tab);
-                DriverManager.getDriver().close();
+                getDriver().switchTo().window(tab);
+                getDriver().close();
             }
         }
-        DriverManager.getDriver().switchTo().window(originalTab);
+        getDriver().switchTo().window(originalTab);
     }
 
     // Get browser tab name
     public String getBrowserTabName() {
-        String browserTabName = DriverManager.getDriver().getTitle();
+        String browserTabName = getDriver().getTitle();
 
         logger.info("Browser tab name is: `{}`", browserTabName);
         return browserTabName;
     }
 
-    // Check a element not exists
+    // Check an element not exists
     public boolean checkElementNotExists(WebElement element) {
         boolean isNotExists = false;
 
@@ -288,7 +269,7 @@ public class BasePage {
         return convertedDate;
     }
 
-    // Check a element displays in view port
+    // Check an element displays in view port
     public boolean isElementDisplays_InViewPort(WebElement element) {
         boolean result = false;
 
@@ -297,8 +278,8 @@ public class BasePage {
         int yCoordinate = element.getLocation().getY();
 
         // Get height and width of screen window
-        int screenHeight = DriverManager.getDriver().manage().window().getSize().getHeight();
-        int screenWidth = DriverManager.getDriver().manage().window().getSize().getWidth();
+        int screenHeight = getDriver().manage().window().getSize().getHeight();
+        int screenWidth = getDriver().manage().window().getSize().getWidth();
 
         // Condition for element displays in view port
         if (xCoordinate >= 0 && yCoordinate >= 0 && xCoordinate <= screenWidth && yCoordinate <= screenHeight) {
@@ -308,7 +289,7 @@ public class BasePage {
         return result;
     }
 
-    // Check a element displays inside other element
+    // Check an element displays inside other element
     public boolean isElementDisplays_InsideOtherElement(WebElement element, WebElement otherElement) {
         boolean result = false;
 

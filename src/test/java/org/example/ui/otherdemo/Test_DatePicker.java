@@ -23,26 +23,26 @@ public class Test_DatePicker extends BaseTest {
                 int currentDay = today.getDayOfMonth();
 
                 // Click on the date picker to open the calendar
-                WebElement datePicker = DriverManager.getDriver().findElement(By.name("my-date"));
+                WebElement datePicker = getDriver().findElement(By.name("my-date"));
                 datePicker.click();
 
                 // Click on the current month by searching by text
-                WebElement monthElement = DriverManager.getDriver()
+                WebElement monthElement = getDriver()
                                 .findElement(By.xpath(String.format("//th[contains(text(),'%d')]", currentYear)));
                 monthElement.click();
 
                 // Click on the left arrow using relative locators
-                WebElement arrowLeft = DriverManager.getDriver().findElement(
+                WebElement arrowLeft = getDriver().findElement(
                                 RelativeLocator.with(By.tagName("th")).toRightOf(monthElement));
                 // arrowLeft.click();
 
                 // Click on the current month of that year
-                WebElement monthPastYear = DriverManager.getDriver().findElement(
+                WebElement monthPastYear = getDriver().findElement(
                                 RelativeLocator.with(By.cssSelector("span[class$='month focused']")).below(arrowLeft));
                 monthPastYear.click();
 
                 // Click on the present day in that month
-                WebElement dayElement = DriverManager.getDriver()
+                WebElement dayElement = getDriver()
                                 .findElement(By.xpath(String.format("//td[@class='day' and contains(text(),'%d')]",
                                                 currentDay)));
                 dayElement.click();

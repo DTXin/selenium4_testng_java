@@ -6,12 +6,12 @@
         <listener class-name="org.example.fw.listener.TestRetryAnalyzerListener"/>
     </listeners> -->
 
-    <parameter name="browser" value="chrome" />
+    <parameter name="browser" value="REMOTE_CHROME" />
     <parameter name="url" value="https://www.saucedemo.com/" />
 
     <test name="Chrome" thread-count="2" parallel="methods">
         <classes>
-            <class name="org.example.ui.InformationTest"/>
+            <class name="org.example.ui.LoginTest"/>
         </classes>
     </test>
 </suite>

@@ -2,10 +2,10 @@ package org.example.fw_api;
 
 import com.google.gson.Gson;
 import io.restassured.response.Response;
-import org.example.fw_api.models.Booking;
-import org.example.fw_api.models.BookingResponse;
+import org.example.fw_api.models.POJOs.Booking;
+import org.example.fw_api.models.POJOs.BookingResponse;
 import org.example.fw_api.models.BuilderPOJO;
-import org.example.fw_api.models.Authentication;
+import org.example.fw_api.models.POJOs.Authentication;
 import org.testng.annotations.BeforeClass;
 
 public class BaseTest extends BaseAPI {
@@ -16,10 +16,8 @@ public class BaseTest extends BaseAPI {
 
     @BeforeClass(description = "Create an authorization token")
     public void createToken() {
-        // New object in model
         loginPOJO = BuilderPOJO.getDataLogin();
         booking = BuilderPOJO.getCreateBookingDate();
-        bookingResponse = new BookingResponse();
 
         Gson gson = new Gson();
 
