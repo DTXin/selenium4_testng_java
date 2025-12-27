@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.example.fw_api.BaseTest;
-import org.example.fw_api.Config;
+import org.example.Config;
 import org.example.fw_api.models.POJOs;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -19,7 +19,7 @@ public class apiTest extends BaseTest {
     public void createNewBooking() {
         Gson gson = new Gson();
 
-        Response response = post(Config.BOOKING_ENDPOINT, gson.toJson(booking));
+        Response response = post(Config.API_BOOKING_ENDPOINT, gson.toJson(booking));
         response.prettyPrint();
 
         bookingResponse = new POJOs.BookingResponse(getResponseKeyValue_Int(response, "bookingid"), booking);
@@ -32,18 +32,18 @@ public class apiTest extends BaseTest {
         listParams.put("firstname", booking.firstname());
         listParams.put("lastname", booking.lastname());
 
-        Response response = get_WithListParams(Config.BOOKING_ENDPOINT, listParams);
+        Response response = get_WithListParams(Config.API_BOOKING_ENDPOINT, listParams);
         JsonPath jsonPath = response.jsonPath();
 
         List<Integer> listBookingID = jsonPath.getList("bookingid");
-        Assert.assertTrue(!listBookingID.isEmpty(), "Booking is an empty list.");
+        Assert.assertFalse(listBookingID.isEmpty(), "Booking is an empty list.");
     }
 
     @Test(priority = 3, description = "Delete a booking by ID")
     public void deleteBooking() {
         int ID = bookingResponse.bookingID();
 
-        Response response = delete(Config.BOOKING_ENDPOINT + "/" + ID);
+        Response response = delete(Config.API_BOOKING_ENDPOINT + "/" + ID);
         response.prettyPrint();
 
         verifyStatusCode(response, 201);

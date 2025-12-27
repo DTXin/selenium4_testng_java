@@ -30,7 +30,7 @@ public class InformationPage extends BasePage {
         inputText_ByJavascript(element, zipcode);
     }
 
-    @Step("[Info Page] Click on countinue button")
+    @Step("[Info Page] Click on continue button")
     public void clickOnContinueButton() {
         WebElement element = getElementByCss(InformationPageLocator.BTN_CONTINUE_CSS);
         clickToElement_ByJavascript(element);

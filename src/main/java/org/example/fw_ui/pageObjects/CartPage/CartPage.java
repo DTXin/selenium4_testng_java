@@ -51,9 +51,9 @@ public class CartPage extends BasePage {
 
     @Step("[Cart Page] Verify continue shopping button is displayed")
     public void isContinueShoppingButtonDisplayed() {
-        WebElement continueShoppingButotn = getElementByXpath(CartPageLocators.BTN_CONTINUE_SHOPPING_XPATH);
+        WebElement continueShoppingButton = getElementByXpath(CartPageLocators.BTN_CONTINUE_SHOPPING_XPATH);
 
-        Assert.assertTrue(continueShoppingButotn.isDisplayed());
+        Assert.assertTrue(continueShoppingButton.isDisplayed());
     }
 
     @Step("[Cart Page] Verify item name: {itemName} exist in the cart")

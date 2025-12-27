@@ -2,6 +2,7 @@ package org.example.fw_api;
 
 import com.google.gson.Gson;
 import io.restassured.response.Response;
+import org.example.Config;
 import org.example.fw_api.models.POJOs.Booking;
 import org.example.fw_api.models.POJOs.BookingResponse;
 import org.example.fw_api.models.BuilderPOJO;
@@ -21,8 +22,8 @@ public class BaseTest extends BaseAPI {
 
         Gson gson = new Gson();
 
-        Response response = post_NotAuthentication(Config.AUTHEN_ENDPOINT, gson.toJson(loginPOJO));
+        Response response = post_NotAuthentication(Config.API_AUTHEN_ENDPOINT, gson.toJson(loginPOJO));
         verifyStatusCode(response, 200);
-        TOKEN = getResponseKeyValue_String(response, Config.TOKEN_KEY);
+        TOKEN = getResponseKeyValue_String(response, Config.API_TOKEN_KEY);
     }
 }

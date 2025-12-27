@@ -1,7 +1,7 @@
 package org.example.api;
 
 import org.example.fw_api.BaseTest;
-import org.example.fw_api.Config;
+import org.example.Config;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -14,7 +14,7 @@ public class GetMethodExample extends BaseTest {
     @Test
     @Description("Verify result from response when using then method of Rest-Assured.")
     public void Test01_verifyResult_UseThenMethod() {
-        Response response = get_WithParams(Config.USER_ENDPOINT,"username", "anhtester");
+        Response response = get_WithParams(Config.API_USER_ENDPOINT,"username", "anhtester");
         response.prettyPrint();
 
         // Verify result from the response

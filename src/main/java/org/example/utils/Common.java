@@ -10,6 +10,10 @@ import org.apache.logging.log4j.Logger;
 public class Common {
     protected static final Logger logger = LogManager.getLogger();
 
+    // Read file JSON
+
+    // Get JSON Data
+
     // Read file properties
     public Properties readFileProperties(String path) {
         logger.info("Reading file properties from path = `{}`", path);
@@ -25,11 +29,9 @@ public class Common {
     }
 
     // Get value from file properties
-    public String getValueFromFileProperties(String pathFile, String keyName) {
+    public String getPropertiesValue(String pathFile, String keyName) {
         Properties properties = readFileProperties(pathFile);
-        String value = properties.getProperty(keyName);
-
-        return value;
+        return properties.getProperty(keyName);
     }
 
     // Get random a string
@@ -41,6 +43,7 @@ public class Common {
         for (int i = 0; i < stringLength; i++) {
             stringBuilder.append(alphaBe.charAt(random.nextInt(alphaBe.length())));
         }
+
         return stringBuilder.toString();
     }
 

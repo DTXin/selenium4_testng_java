@@ -26,6 +26,6 @@ public class ProductTest extends BaseTest {
     @Test
     public void TC02_Verify_ListProductName_OrderByDescending() {
         getProductPage().selectTextOnSortDropdown("Name (Z to A)");
-        getProductPage().verify_ListProductName_OrderByDecending();
+        getProductPage().verify_ListProductName_OrderByDescending();
     }
 }

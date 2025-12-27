@@ -95,11 +95,10 @@ public class BasePage extends DriverManager {
                 .executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
-    /********************************************************************
-     ** Start Blocks: Convert xpath, css, id... to WebElement ***********
-     ** 
-     ** @param1: String xpath or css or id ******************************
-     ** @param2: String for formatting **********************************
+    /*******************************************************************
+     ** Start Blocks: Convert xpath, css, id... to WebElement **********
+     ** param1:  String xpath or css or id *****************************
+     ** param2: String for formatting **********************************
      *******************************************************************/
 
     // Convert element from xpath which can not use @FindBy fo find

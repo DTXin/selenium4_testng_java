@@ -1,11 +1,11 @@
 package org.example.fw_api.models;
 
-import org.example.fw_api.Config;
+import org.example.Config;
 
 public class BuilderPOJO {
 
     public static POJOs.Authentication getDataLogin() {
-        return new POJOs.Authentication(Config.USERNAME, Config.PASSWORD);
+        return new POJOs.Authentication(Config.API_USERNAME, Config.API_PASSWORD);
     }
 
     public static POJOs.Booking getCreateBookingDate() {

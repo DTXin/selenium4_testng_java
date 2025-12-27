@@ -8,13 +8,12 @@ import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.fw_ui.Config;
+import org.example.Config;
 import org.example.fw_ui.enums.Browsers;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.devtools.v134.page.Page;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -111,10 +110,10 @@ public class DriverManager extends PageManager {
     // Setup Chrome Options
     private ChromeOptions getChromeOptions() {
         HashMap<String, Object> chromePrefs = new HashMap<>();
-        chromePrefs.put("safebrowsing.enabled", "true");
-        chromePrefs.put("download.prompt_for_download", "false");
-        chromePrefs.put("download.default_directory",
-                String.valueOf(Paths.get(System.getProperty("user.dir"), "/src/test/resources/download")));
+        chromePrefs.put(Config.SAFE_BROWSING, "true");
+        chromePrefs.put(Config.PROMPT_FOR_DOWNLOAD, "false");
+        chromePrefs.put(Config.DEFAULT_DIRECTORY,
+                String.valueOf(Paths.get(System.getProperty(Config.USER_DIR), Config.DOWNLOAD_FOLDER)));
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments(Config.INCOGNITO_MODE);
@@ -153,22 +152,27 @@ public class DriverManager extends PageManager {
         return options;
     }
 
+    // Get driver
     public static WebDriver getDriver() {
         return driver.get();
     }
 
+    // Get driver wait
     public WebDriverWait getDriverWait() {
         return driverWait;
     }
 
+    // Set driver
     public void setDriver(WebDriver webDriver) {
         driver.set(webDriver);
     }
 
+    // Set driver wait
     public void setDriverWait(WebDriverWait webDriverWait) {
         driverWait = webDriverWait;
     }
 
+    // Close driver
     public void closeDriver() {
         if (getDriver() != null) {
             logger.info("=== Logger: Closing the driver ===");

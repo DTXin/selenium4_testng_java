@@ -11,7 +11,7 @@
 
     <test name="Chrome" thread-count="2" parallel="methods">
         <classes>
-            <class name="org.example.ui.LoginTest"/>
+            <class name="org.example.ui.ProductTest"/>
         </classes>
     </test>
 </suite>

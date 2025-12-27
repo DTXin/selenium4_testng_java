@@ -1,14 +1,15 @@
 # Introduction
-Demo building an automation framework from scratch with Selenium 4 and REST Assured.
+This is a Selenium-based test automation project built with Java and TestNG, following the Page Object Model (POM) design pattern. The framework supports both UI and API testing.
 
-# Libraries and Frameworks
-This sample using the following libraries and frameworks:
+# Tech Stack Used
 - Java 21 – Programming language
 - Selenium WebDriver 4 – For browser automation
-- Maven – Build tool and package management
+- Maven – Build tool and dependency management
 - TestNG – Test framework for structuring and executing tests
 - REST Assured – For API automation
 - Allure Report – For test reporting
+- Apache Commons CSV - For reading data from CSV files
+- Git & GitHub - Version control
 
 # Key Features
 - Page Object Model design.
@@ -32,11 +33,11 @@ $ cd selenium4_testng_java
 $ mvn clean install
 ```
 # Running Tests on Local
-1. [Web UI] Run via TestNG XML
+1.[Web UI] Run via TestNG XML
 ```
-$ mvn test -DsuiteXmlFile="test-suite\saucedemo\testng.xml" 
+$ mvn test -DsuiteXmlFile="test-suite\saucedemo\testng_local.xml" 
 ```
-2. [API] Run via TestNG XML
+2.[API] Run via TestNG XML
 ```
 $ mvn test -DsuiteXmlFile="test-suite\api\testng.xml" 
 ```
@@ -57,12 +58,12 @@ $ docker-compose -f docker-compose-seleniumgrid.yml up --build
 This will start the selenium grid which can be access using http://localhost:4444
 
 # Generating Allure Reports
-1. Generate Allure Reports
+1.Generate Allure Reports
 ```
 $ allure generate
 ```
 
-2. Open Allure Reports
+2.Open Allure Reports
 ```
 $ allure open
 ```

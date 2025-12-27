@@ -14,7 +14,7 @@ public class InformationTest extends BaseTest {
     @Test
     public void T01_Verify_ErrorIsDisplayed_WithoutFirstName() {
         getProductPage().clickOnAddToCartButton("Sauce Labs Backpack");
-        getProductPage().clickOnShoppingCartlink();
+        getProductPage().clickOnShoppingCartButton();
         getCartPage().verify_HeaderOfCartPage_IsDisplayed();
         getCartPage().clickOnCheckoutButton();
         getInformationPage().verify_HeaderOfInformationPage_IsDisplayed();
@@ -26,7 +26,7 @@ public class InformationTest extends BaseTest {
     @Test
     public void T02_Verify_ErrorIsDisplayed_WithoutLastName() {
         getProductPage().clickOnAddToCartButton("Sauce Labs Backpack");
-        getProductPage().clickOnShoppingCartlink();
+        getProductPage().clickOnShoppingCartButton();
         getCartPage().verify_HeaderOfCartPage_IsDisplayed();
         getCartPage().clickOnCheckoutButton();
         getInformationPage().verify_HeaderOfInformationPage_IsDisplayed();

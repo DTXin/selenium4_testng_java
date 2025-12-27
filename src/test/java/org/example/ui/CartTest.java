@@ -14,7 +14,7 @@ public class CartTest extends BaseTest {
     @Test
     public void T01_Verify_CheckOutButon_IsDisplayed() {
         getProductPage().clickOnAddToCartButton("Sauce Labs Backpack");
-        getProductPage().clickOnShoppingCartlink();
+        getProductPage().clickOnShoppingCartButton();
         getCartPage().verify_HeaderOfCartPage_IsDisplayed();
         getCartPage().verify_CheckoutButton_IsDisplayed();
     }

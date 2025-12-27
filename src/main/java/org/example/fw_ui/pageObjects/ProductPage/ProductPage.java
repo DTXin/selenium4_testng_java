@@ -24,7 +24,7 @@ public class ProductPage extends BasePage {
     }
 
     @Step("[Product Page] Click on shopping cart link")
-    public void clickOnShoppingCartlink() {
+    public void clickOnShoppingCartButton() {
         WebElement cartLink = getElementByXpath(ProductPageLocators.LINK_SHOPPING_CART);
         clickToElement_ByJavascript(cartLink);
     }
@@ -60,25 +60,25 @@ public class ProductPage extends BasePage {
         List<String> listProductName_SortActual = getTextAllElements(elementXpath);
 
         // From list actual above. We sorted it by ascending
-        List<String> listProductName_SortExpceted = listProductName_SortActual.stream()
+        List<String> listProductName_SortExpected = listProductName_SortActual.stream()
                 .sorted()
                 .collect(Collectors.toList());
 
         // Assert actual and expected
-        Assert.assertEquals(listProductName_SortActual, listProductName_SortExpceted);
+        Assert.assertEquals(listProductName_SortActual, listProductName_SortExpected);
     }
 
-    @Step("[Product Page] Verify list product name are order by decending.")
-    public void verify_ListProductName_OrderByDecending() {
+    @Step("[Product Page] Verify list product name are order by descending.")
+    public void verify_ListProductName_OrderByDescending() {
         List<WebElement> elementsXpath = getElementsByXpath(ProductPageLocators.ITEMS_NAME);
         List<String> listProductName_SortActual = getTextAllElements(elementsXpath);
 
-        // From list actual above. We sorted it by decending
-        List<String> listProductName_SortExpceted = listProductName_SortActual.stream()
+        // From list actual above. We sorted it by descending
+        List<String> listProductName_SortExpected = listProductName_SortActual.stream()
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
 
         // Assert actual and expected
-        Assert.assertEquals(listProductName_SortActual, listProductName_SortExpceted);
+        Assert.assertEquals(listProductName_SortActual, listProductName_SortExpected);
     }
 }

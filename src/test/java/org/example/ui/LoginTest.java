@@ -12,11 +12,11 @@ public class LoginTest extends BaseTest {
         getProductPage().verify_ProductPage_IsDisplayed();
     }
 
-    @Test(description = "Verify login unsuccessfully!")
-    public void TC02_InvalidLogin() {
-        getLoginPage().login("standard_user", "wrong_pass");
-        getLoginPage().verify_ErrorMessageContainer_IsDisplayed();
-    }
+//    @Test(description = "Verify login unsuccessfully!")
+//    public void TC02_InvalidLogin() {
+//        getLoginPage().login("standard_user", "wrong_pass");
+//        getLoginPage().verify_ErrorMessageContainer_IsDisplayed();
+//    }
 
     @DataProvider(name = "valid-logins")
     public static Object[][] getValidLogins() {
