@@ -1,8 +1,11 @@
 package org.example.utils;
 
+import java.io.FileReader;
 import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.Random;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,8 +14,20 @@ public class Common {
     protected static final Logger logger = LogManager.getLogger();
 
     // Read file JSON
+    public JsonObject ReadJsonWithGson(String fileName) {
+        Gson gson = new Gson();
+        JsonObject obj = new JsonObject();
+        FileReader reader;
 
-    // Get JSON Data
+        try {
+            reader = new FileReader(fileName);
+            obj = gson.fromJson(reader, JsonObject.class);
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+        }
+
+        return obj;
+    }
 
     // Read file properties
     public Properties readFileProperties(String path) {

@@ -10,5 +10,7 @@ public class ProductPageLocators {
 
     public static final String SORT_DROPDOWN = "//select[contains(@class,'product_sort_container')]";
 
-    public static final String ITEMS_NAME = "//div[contains(@class,'inventory_item_name ')]";
+    public static final String ITEMS_NAME = "//div[contains(@class,'inventory_item_name')]";
+    public static final String ITEMS_PRICE = "//div[contains(@class,'inventory_item_price')]";
+
 }

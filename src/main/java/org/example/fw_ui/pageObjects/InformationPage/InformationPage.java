@@ -27,7 +27,7 @@ public class InformationPage extends BasePage {
     @Step("[Info Page] Input text to zip code field")
     public void inputTextToZipCode(String zipcode) {
         WebElement element = getElementByCss(InformationPageLocator.TXT_ZIPCODE_CSS);
-        inputText_ByJavascript(element, zipcode);
+        element.sendKeys(zipcode);
     }
 
     @Step("[Info Page] Click on continue button")

@@ -2,7 +2,6 @@ package org.example.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +22,7 @@ public class ExcelHelper {
 
     // Create a workbook
     public Workbook getWorkBook(String fileName) {
-        logger.info("Create a workbook from file name: " + fileName);
+        logger.info("Create a workbook from file name: `{}`", fileName);
 
         Workbook workbook = null;
         try (FileInputStream fis = new FileInputStream(fileName)) {
@@ -43,7 +42,7 @@ public class ExcelHelper {
 
     // Close a workbook
     public void closeWorkbook(Workbook workbook) {
-        logger.info("Close a workbook `{}`", workbook);
+        logger.info("Close a workbook: `{}`", workbook);
 
         try {
             workbook.close();
@@ -52,7 +51,7 @@ public class ExcelHelper {
         }
     }
 
-    // Verify cell value on column index and row index
+    // Get cell value on column index and row index
     public String getCellValueOnColumn_RowIndex(String fileName, String sheetName, int columnIndex, int rowIndex) {
         Workbook workbook = getWorkBook(fileName);
         Sheet sheet = workbook.getSheet(sheetName);
@@ -124,7 +123,7 @@ public class ExcelHelper {
         return columnIndex;
     }
 
-    // Get list of column header in excel file
+    // Get list of column header in Excel file
     public List<String> getListOfColumnHeader(String fileName, String sheetName) {
         logger.info("Get list of column header on sheet name `{}` on file name `{}`", sheetName, fileName);
 
@@ -132,7 +131,8 @@ public class ExcelHelper {
         Sheet sheet = workbook.getSheet(sheetName);
         Row headerRow = sheet.getRow(0);
 
-        List<String> listOfColumnHeader = new ArrayList<>();
+        List<String> listOfColumnHeader;
+
         if (headerRow == null) {
             listOfColumnHeader = Collections.emptyList();
         } else {
@@ -148,7 +148,7 @@ public class ExcelHelper {
         return listOfColumnHeader;
     }
 
-    // Check sheet name is exists in excel file
+    // Check sheet name exists in Excel file
     public Boolean checkSheetNameExists(String fileName, String sheetName) {
         boolean isSheetNameExists = false;
 
@@ -167,9 +167,9 @@ public class ExcelHelper {
         return isSheetNameExists;
     }
 
-    // Get number of row in excel file
+    // Get number of row in Excel file
     public int countNumberOfRows(String fileName, String sheetName) {
-        int rowsCount = 0;
+        int rowsCount;
 
         Workbook workbook = getWorkBook(fileName);
         Sheet sheet = workbook.getSheet(sheetName);
@@ -180,10 +180,9 @@ public class ExcelHelper {
         return rowsCount;
     }
 
-    // Check a column header is exists in excel file
+    // Check a column header exists in Excel file
     public Boolean checkColumnHeaderExists(String fileName, String sheetName, String expectedColumnHeader) {
-        boolean isColumnHeaderExists = false;
-
+        boolean isColumnHeaderExists;
         Workbook workbook = getWorkBook(fileName);
 
         List<String> actualColumnHeader = getListOfColumnHeader(fileName, sheetName);

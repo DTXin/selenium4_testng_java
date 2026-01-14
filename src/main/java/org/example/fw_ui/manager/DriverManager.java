@@ -9,7 +9,6 @@ import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.Config;
-import org.example.fw_ui.enums.Browsers;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -121,6 +120,7 @@ public class DriverManager extends PageManager {
         options.addArguments(Config.NO_SANDBOX);
         options.addArguments(Config.DISABLE_NOTIFICATIONS);
         options.addArguments(Config.DISABLE_POPUP_BLOCKING);
+        options.addArguments(Config.MAXIMIZED_MODE);
 
         var isHeadless = Boolean.parseBoolean(Objects.requireNonNullElse(System.getProperty("headless"), "false"));
         if (isHeadless) {
@@ -139,6 +139,7 @@ public class DriverManager extends PageManager {
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments(Config.NO_SANDBOX);
         options.addArguments(Config.DISABLE_DEV_SHM);
+        options.addArguments(Config.MAXIMIZED_MODE);
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 
         return options;

@@ -1,4 +1,4 @@
-package org.example.fw_ui.enums;
+package org.example.fw_ui.manager;
 
 public enum Browsers {
     CHROME,

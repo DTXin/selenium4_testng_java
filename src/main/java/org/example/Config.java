@@ -1,6 +1,18 @@
 package org.example;
 
 public class Config {
+    // URL for specify the environment
+    public static final String QA_URL = "https://www.saucedemo.com/";
+    public static final String STAGING_URL = "";
+
+    // Username and Password for QA environment
+    public static final String QA_USERNAME = "standard_user";
+    public static final String QA_PASSWORD = "secret_sauce";
+
+    // Username and Password for STAGING environment
+    public static final String STAGING_USERNAME = "standard_user";
+    public static final String STAGING_PASSWORD = "secret_sauce";
+
     // Specify the URL of the remote WebDriver
     public static final String REMOTE_URL = "http://selenium-hub:4444";
 
@@ -20,6 +32,7 @@ public class Config {
     public static final String DISABLE_NOTIFICATIONS = "--disable-notifications";
     public static final String DISABLE_POPUP_BLOCKING = "--disable-popup-blocking";
     public static final String HEADLESS = "--headless";
+    public static final String MAXIMIZED_MODE = "--start-maximized";
 
     // List experimental options for browser
     public static final String SAFE_BROWSING = "safebrowsing.enabled";
@@ -28,7 +41,12 @@ public class Config {
 
     // Get the current working directory
     public static final String USER_DIR = "user.dir";
-    public static final String DOWNLOAD_FOLDER= "/src/test/resources/download";
+    public static final String DOWNLOAD_FOLDER= "src/test/resources/Download/";
+    public static final String DATATEST_FOLDER = "src/test/resources/DataTest/";
+
+    // Json file name
+    public static final String USER = "user.json";
+    public static final String SHOPPING = "shopping.json";
 
     /*********************
         Config for API

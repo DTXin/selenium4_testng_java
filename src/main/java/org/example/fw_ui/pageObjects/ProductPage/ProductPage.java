@@ -81,4 +81,32 @@ public class ProductPage extends BasePage {
         // Assert actual and expected
         Assert.assertEquals(listProductName_SortActual, listProductName_SortExpected);
     }
+
+    @Step("[Product Page] Verify list product name are order by Low to High.")
+    public void verify_ListProductPrice_OrderByLowToHigh() {
+        List<WebElement> elementXpath = getElementsByXpath(ProductPageLocators.ITEMS_PRICE);
+        List<String> listProductPrice_SortActual = getTextAllElements(elementXpath);
+
+        // From list actual above. We sorted it by ascending
+        List<String> listProductPrice_SortExpected = listProductPrice_SortActual.stream()
+                .sorted(Comparator.comparingDouble(s -> Double.parseDouble(s.substring(1))))
+                .collect(Collectors.toList());
+
+        // Assert actual and expected
+        Assert.assertEquals(listProductPrice_SortActual, listProductPrice_SortExpected);
+    }
+
+    @Step("[Product Page] Verify list product name are order by High to Low.")
+    public void verify_ListProductPrice_OrderByHighToLow() {
+        List<WebElement> elementXpath = getElementsByXpath(ProductPageLocators.ITEMS_PRICE);
+        List<String> listProductPrice_SortActual = getTextAllElements(elementXpath);
+
+        // From list actual above. We sorted it by ascending
+        List<String> listProductPrice_SortExpected = listProductPrice_SortActual.stream()
+                .sorted(Comparator.comparingDouble( (String s) -> Double.parseDouble(s.substring(1))).reversed())
+                .collect(Collectors.toList());
+
+        // Assert actual and expected
+        Assert.assertEquals(listProductPrice_SortActual, listProductPrice_SortExpected);
+    }
 }

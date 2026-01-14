@@ -34,11 +34,18 @@ public class LoginPage extends BasePage {
      *** Verify methods **********
      *****************************/
 
-    @Step("[Login Page] Verify error message container is displayed")
-    public void verify_ErrorMessageContainer_IsDisplayed() {
-        WebElement error = getElementByXpath(LoginPageLocators.ERROR_MESSAGE_CONTAINER);
+    @Step("[Login Page] Verify error message invalid user")
+    public void verify_ErrorMessage_InvalidUser() {
+        WebElement errorInvalidUser = getElementByXpath(LoginPageLocators.ERROR_MESSAGE_INVALID_USER);
 
-        Assert.assertTrue(error.isDisplayed(), "Error message container is NOT displayed");
+        Assert.assertTrue(errorInvalidUser.isDisplayed(), "Error message container is NOT displayed");
+    }
+
+    @Step("[Login Page] Verify error message container is displayed")
+    public void verify_ErrorMessage_LockedUser() {
+        WebElement errorLockedUser = getElementByXpath(LoginPageLocators.ERROR_MESSAGE_LOCKED_USER);
+
+        Assert.assertTrue(errorLockedUser.isDisplayed(), "Error message container is NOT displayed");
     }
 
     /*
